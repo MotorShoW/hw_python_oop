@@ -16,18 +16,19 @@ class Calculator:
         for record in self.records:
             if record.date == self.today:
                 today_stats.append(record.amount)
-            return sum(today_stats)
+        return sum(today_stats)
 
     def get_week_stats(self):
         week_stats = []
         for record in self.records:
             if self.lastweek <= record.date <= self.today:
                 week_stats.append(record.amount)
-            return sum(week_stats)
+        return sum(week_stats)
 
     def limit_today(self):
         balance = self.limit - self.get_today_stats()
         return balance
+
 
 class CaloriesCalculator(Calculator):
     def get_calories_remained(self):
@@ -36,7 +37,7 @@ class CaloriesCalculator(Calculator):
             text = (f'Сегодня можно съесть что-нибудь ещё, но'
                     f'с общей калорийностью не более {calories_remained} кКал')
         else:
-            text = (f'Хватит есть!')
+            text = ('Хватит есть!')
         return text
 
 
@@ -44,24 +45,25 @@ class CashCalculator(Calculator):
     BYN_RATE = 1
     USD_RATE = 2.52
     EUR_RATE = 2.96
+
     def get_today_cash_remained(self, currency='byn'):
         all_currencies = {'byn': ('руб', CashCalculator.BYN_RATE),
-                            'usd': ('USD', CashCalculator.USD_RATE),
-                            'eur': ('Euro', CashCalculator.EUR.RATE)}
-        name, curr = all_currencies[currency]                    
+                          'usd': ('USD', CashCalculator.USD_RATE),
+                          'eur': ('Euro', CashCalculator.EUR.RATE)}
+        name, curr = all_currencies[currency]
         currency_remained = self.limit_today()
         currency_remained = round(currency_remained / curr, 2)
         if currency_remained > 0:
             text = (f'На сегодня осталось {currency_remained} {name}')
         elif currency_remained == 0:
-            text = (f'Денег нет, держись')
+            text = ('Денег нет, держись')
         else:
             currency_remained = abs(currency_remained)
             text = (f'Денег нет, держись: твой долг'
                     f'{currency_remained} {name}')
         return text
 
-                
+
 class Record():
     def __init__(self, amount, comment, date=None):
         self.amount = amount
