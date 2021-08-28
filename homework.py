@@ -5,7 +5,7 @@ class Calculator:
     def __init__(self, limit):
         self.limit = limit
         self.records = []
-        self.today = dt.datetime.now
+        self.today = dt.date.today()
         self.last_week = self.today - dt.timedelta(days=7)
 
     def add_record(self, record):
@@ -49,7 +49,7 @@ class CashCalculator(Calculator):
     def get_today_cash_remained(self, currency='byn'):
         all_currencies = {'byn': ('руб', CashCalculator.BYN_RATE),
                           'usd': ('USD', CashCalculator.USD_RATE),
-                          'eur': ('Euro', CashCalculator.EUR.RATE)}
+                          'eur': ('Euro', CashCalculator.EUR_RATE)}
         name, curr = all_currencies[currency]
         currency_remained = self.limit_today()
         currency_remained = round(currency_remained / curr, 2)
