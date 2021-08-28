@@ -64,6 +64,10 @@ class CashCalculator(Calculator):
         return text
 
                 
+
+
+
+
 class Record():
     def __init__(self, amount, comment, date=None):
         self.amount = amount
