@@ -44,12 +44,12 @@ class CaloriesCalculator(Calculator):
 class CashCalculator(Calculator):
     BYN_RATE = 1
     USD_RATE = 2.52
-    EUR_RATE = 2.96
+    EURO_RATE = 2.96
 
     def get_today_cash_remained(self, currency='byn'):
         all_currencies = {'byn': ('руб', CashCalculator.BYN_RATE),
                           'usd': ('USD', CashCalculator.USD_RATE),
-                          'eur': ('Euro', CashCalculator.EUR_RATE)}
+                          'eur': ('Euro', CashCalculator.EURO_RATE)}
         name, curr = all_currencies[currency]
         currency_remained = self.limit_today()
         currency_remained = round(currency_remained / curr, 2)
