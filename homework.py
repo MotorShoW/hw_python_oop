@@ -21,7 +21,7 @@ class Calculator:
     def get_week_stats(self):
         week_stats = []
         for record in self.records:
-            if self.lastweek <= record.date <= self.today:
+            if self.last_week <= record.date <= self.today:
                 week_stats.append(record.amount)
         return sum(week_stats)
 
@@ -47,7 +47,7 @@ class CashCalculator(Calculator):
     EURO_RATE = 87
 
     def get_today_cash_remained(self, currency='rub'):
-        all_currencies = {'rub': ('rub', CashCalculator.RUB_RATE),
+        all_currencies = {'rub': ('руб', CashCalculator.RUB_RATE),
                           'usd': ('USD', CashCalculator.USD_RATE),
                           'eur': ('Euro', CashCalculator.EURO_RATE)}
         name, curr = all_currencies[currency]
