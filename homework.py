@@ -5,20 +5,19 @@ class Calculator:
     def __init__(self, limit):
         self.limit = limit
         self.records = []
-        self.today = dt.datetime.now().date()
-        self.last_week = self.today - dt.timedelta(days=7)
 
     def add_record(self, record):
         self.records.append(record)
 
     def get_today_stats(self):
         today_stats = sum(record.amount for record in self.records
-                          if record.date == self.today)
+                          if record.date == dt.date.today())
         return today_stats
 
     def get_week_stats(self):
+        last_week = dt.date.today() - dt.timedelta(days=7)
         week_stats = sum(record.amount for record in self.records
-                         if self.last_week <= record.date <= self.today)
+                         if last_week <= record.date <= dt.date.today())
         return week_stats
 
     def get_limit_today(self):
@@ -33,7 +32,7 @@ class CaloriesCalculator(Calculator):
             text = (f'Сегодня можно съесть что-нибудь ещё, но с'
                     f' общей калорийностью не более {calories_remained} кКал')
         else:
-            text = ('Хватит есть!')
+            text = 'Хватит есть!'
         return text
 
 
