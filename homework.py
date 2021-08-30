@@ -25,14 +25,14 @@ class Calculator:
                 week_stats.append(record.amount)
         return sum(week_stats)
 
-    def limit_today(self):
+    def get_limit_today(self):
         balance = self.limit - self.get_today_stats()
         return balance
 
 
 class CaloriesCalculator(Calculator):
     def get_calories_remained(self):
-        calories_remained = self.limit_today()
+        calories_remained = self.get_limit_today()
         if calories_remained > 0:
             text = (f'Сегодня можно съесть что-нибудь ещё, но с'
                     f' общей калорийностью не более {calories_remained} кКал')
@@ -47,7 +47,7 @@ class CashCalculator(Calculator):
     EURO_RATE = 87.0
 
     def get_today_cash_remained(self, currency='rub'):
-        currency_remained = self.limit_today()
+        currency_remained = self.get_limit_today()
         if currency_remained == 0:
             return 'Денег нет, держись'
         all_currencies = {'rub': ('руб', CashCalculator.RUB_RATE),
