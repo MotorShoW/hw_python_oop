@@ -15,6 +15,8 @@ class Calculator:
         return today_stats
 
     def get_week_stats(self):
+        # Нужна ли переменная last_week,
+        # или стоит все вычисления пихать в выражение-генератор?
         last_week = dt.date.today() - dt.timedelta(days=7)
         week_stats = sum(record.amount for record in self.records
                          if last_week <= record.date <= dt.date.today())
