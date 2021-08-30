@@ -12,18 +12,14 @@ class Calculator:
         self.records.append(record)
 
     def get_today_stats(self):
-        today_stats = []
-        for record in self.records:
-            if record.date == self.today:
-                today_stats.append(record.amount)
-        return sum(today_stats)
+        today_stats = sum(record.amount for record in self.records
+                          if record.date == self.today)
+        return today_stats
 
     def get_week_stats(self):
-        week_stats = []
-        for record in self.records:
-            if self.last_week <= record.date <= self.today:
-                week_stats.append(record.amount)
-        return sum(week_stats)
+        week_stats = sum(record.amount for record in self.records
+                         if self.last_week <= record.date <= self.today)
+        return week_stats
 
     def get_limit_today(self):
         balance = self.limit - self.get_today_stats()
