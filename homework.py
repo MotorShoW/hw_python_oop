@@ -47,16 +47,16 @@ class CashCalculator(Calculator):
     EURO_RATE = 87.0
 
     def get_today_cash_remained(self, currency='rub'):
+        currency_remained = self.limit_today()
+        if currency_remained == 0:
+            return 'Денег нет, держись'
         all_currencies = {'rub': ('руб', CashCalculator.RUB_RATE),
                           'usd': ('USD', CashCalculator.USD_RATE),
                           'eur': ('Euro', CashCalculator.EURO_RATE)}
         name, curr = all_currencies[currency]
-        currency_remained = self.limit_today()
         currency_remained = round(currency_remained / curr, 2)
         if currency_remained > 0:
             text = (f'На сегодня осталось {currency_remained} {name}')
-        elif currency_remained == 0:
-            text = ('Денег нет, держись')
         else:
             currency_remained = abs(currency_remained)
             text = (f'Денег нет, держись: твой долг - '
