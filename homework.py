@@ -5,7 +5,7 @@ class Calculator:
     def __init__(self, limit):
         self.limit = limit
         self.records = []
-        self.today = dt.date.today()
+        self.today = dt.datetime.now().date()
         self.last_week = self.today - dt.timedelta(days=7)
 
     def add_record(self, record):
