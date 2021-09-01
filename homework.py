@@ -10,16 +10,16 @@ class Calculator:
         self.records.append(record)
 
     def get_today_stats(self):
+        today = dt.date.today()
         today_stats = sum(record.amount for record in self.records
-                          if record.date == dt.date.today())
+                          if record.date == today)
         return today_stats
 
     def get_week_stats(self):
-        # Нужна ли переменная last_week,
-        # или стоит все вычисления пихать в выражение-генератор?
-        last_week = dt.date.today() - dt.timedelta(days=7)
+        today = dt.date.today()
+        last_week = today - dt.timedelta(days=7)
         week_stats = sum(record.amount for record in self.records
-                         if last_week <= record.date <= dt.date.today())
+                         if last_week <= record.date <= today)
         return week_stats
 
     def get_limit_today(self):
